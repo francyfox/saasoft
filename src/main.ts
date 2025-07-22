@@ -4,6 +4,7 @@ import {
 } from '@sinclair/typebox/errors'
 import { Icon } from 'lucide-vue-next'
 import { createPinia } from 'pinia'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import { createApp } from 'vue'
 
 import 'virtual:uno.css'
@@ -17,6 +18,7 @@ SetErrorFunction((error) => {
 })
 
 const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
 
 const app = createApp(App)
 
