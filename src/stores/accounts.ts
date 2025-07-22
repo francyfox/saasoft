@@ -28,7 +28,7 @@ export const useAccountsStore = defineStore(
     function addRecord() {
       records.value.push({
         id: `v${records.value.length}`,
-        tags: null,
+        tags: [],
         type: 'local',
         login: null,
         password: null,
