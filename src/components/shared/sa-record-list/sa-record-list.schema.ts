@@ -8,13 +8,15 @@ export const AccountSchema = (type: 'local' | 'ldap') =>
 
 export const AccountSchemaLDAP = t.Intersect([
   t.Object({
-    tags: t.Union([
-      t.String({
-        maxLength: 50,
-        errorMessage: 'Максимум 50 символов',
-      }),
-      t.Null(),
-    ]),
+    tags: t.Union(
+      [
+        t.String({
+          maxLength: 50,
+        }),
+        t.Null(),
+      ],
+      { errorMessage: 'Максимум 50 символов' },
+    ),
   }),
   t.Required(
     t.Object({
