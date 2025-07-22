@@ -36,6 +36,10 @@ function handleSave(v: TAccount) {
             @onRemove="v => accountsStore.removeRecord(v)"
             @onSave="handleSave"
         />
+
+        <pre>
+          {{ JSON.stringify(records, null, 2) }}
+        </pre>
       </div>
     </div>
   </section>

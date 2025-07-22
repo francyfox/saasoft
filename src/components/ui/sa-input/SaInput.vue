@@ -10,6 +10,7 @@ const { type } = useAttrs()
 
 const showEye = type === 'password'
 const showPassword = ref(false)
+const dirty = ref(false)
 const inputType = computed(() =>
   showEye ? (showPassword.value ? 'text' : 'password') : (type ?? 'text'),
 )
@@ -21,12 +22,13 @@ const inputType = computed(() =>
         v-bind="$attrs"
         :type="inputType"
         v-model="model"
-        class="input"
-        :class="{ 'input-error': error }"
+        class="input w-full"
+        :class="{ 'input-error': dirty && error }"
+        @click="dirty = true"
     />
 
     <div class="min-h-[16px]">
-      <div v-if="error" class="text-red text-xs">
+      <div v-if="dirty && error" class="text-red text-xs">
         {{ error}}
       </div>
     </div>

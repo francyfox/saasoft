@@ -46,7 +46,7 @@ export const useAccountsStore = defineStore('accounts', () => {
   }
 
   function validate(v: TAccount) {
-    const result = validateSchema(AccountSchema, v)
+    const result = validateSchema(AccountSchema(v.type), v)
     const errorIndex = errors.value.findIndex((i) => i.id === v.id)
     console.log(errorIndex)
 

@@ -31,6 +31,19 @@ const types: SaSelectOption[] = [
     value: 'local',
   },
 ]
+
+const isLDAP = (account: TAccount): boolean => account.type === 'ldap'
+
+function handleChangeType(i: TAccount) {
+  const account = i
+  account.password = null
+  console.log(account)
+
+  emit('onSave', account)
+
+  if (isLDAP(i)) {
+  }
+}
 </script>
 
 <template>
@@ -45,7 +58,7 @@ const types: SaSelectOption[] = [
       <div class="max-w-[50px]"></div>
     </div>
 
-    <div v-for="i in list"
+    <div v-for="(i, index) in list"
          :key="i.id"
          class="record-list-item grid grid-cols-5 gap-2"
     >
@@ -58,16 +71,18 @@ const types: SaSelectOption[] = [
       <SaSelect
           v-model="i.type"
           :options="types"
-          @change="emit('onSave', i)"
+          @change="handleChangeType(i)"
       />
 
       <SaInput
           v-model="i.login"
           :error="getFieldError(i.id, 'login', errors)"
+          :class="{ 'col-span-2': isLDAP(i) }"
           @blur="emit('onSave', i)"
       />
 
       <SaInput
+          v-if="i.type !== 'ldap'"
           v-model="i.password"
           type="password"
           :error="getFieldError(i.id, 'password', errors)"
