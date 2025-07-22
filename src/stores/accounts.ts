@@ -13,7 +13,26 @@ export const useAccountsStore = defineStore('accounts', () => {
     },
   ])
 
+  function addRecord() {
+    records.value.push({
+      id: useId(),
+      tags: null,
+      type: 'local',
+      login: null,
+      password: null,
+    })
+  }
+
+  function removeRecord(id: string) {
+    records.value.splice(
+      records.value.findIndex((i) => i.id === id),
+      1,
+    )
+  }
+
   return {
     records,
+    addRecord,
+    removeRecord,
   }
 })

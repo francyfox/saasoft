@@ -14,12 +14,19 @@ const { records } = storeToRefs(accountsStore)
       <div class="flex flex-col gap-2">
         <div class="flex items-center gap-5">
           <h1 class="text-4xl">Учетные записи</h1>
-          <button type="button" class="btn">
+          <button
+              type="button"
+              class="btn"
+              @click.prevent="accountsStore.addRecord"
+          >
             <Plus />
           </button>
         </div>
 
-        <SaRecordList :list="records" />
+        <SaRecordList
+            :list="records"
+            @onRemove="v => accountsStore.removeRecord(v)"
+        />
       </div>
     </div>
   </section>

@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { Trash } from 'lucide-vue-next'
-import { computed, ref } from 'vue'
 import type { TAccount } from '@/components/shared/sa-record-list/sa-record-list.schema.ts'
 import SaInput from '@/components/ui/sa-input/SaInput.vue'
 import SaSelect, {
   type SaSelectOption,
 } from '@/components/ui/sa-select/SaSelect.vue'
 
+const emit = defineEmits<{
+  onRemove: [id: string]
+}>()
 const props = defineProps<{
   list: TAccount[]
 }>()
@@ -48,6 +50,19 @@ const types: SaSelectOption[] = [
                 :options="types"
       />
 
+      <SaInput v-model="i.login" />
+
+      <SaInput type="password" v-model="i.password" />
+
+      <div class="col-span-1">
+        <button
+            type="button"
+            class="btn"
+            @click.prevent="emit('onRemove', i.id)"
+        >
+          <Trash />
+        </button>
+      </div>
     </div>
   </div>
 </template>
