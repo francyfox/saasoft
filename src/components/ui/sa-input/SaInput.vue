@@ -2,9 +2,28 @@
 import { Eye, EyeOff } from 'lucide-vue-next'
 import { computed, ref, useAttrs } from 'vue'
 
-const model = defineModel()
+const model = defineModel({
+  set(value) {
+    if (props.hasTags) {
+      return value.split(';').map((i) => {
+        return {
+          text: i,
+        }
+      })
+    }
+
+    return value
+  },
+  get(value) {
+    if (props.hasTags) {
+      return value.map((i) => i.text).join(';')
+    }
+    return value
+  },
+})
 const props = defineProps<{
   error?: string
+  hasTags?: boolean
 }>()
 const { type } = useAttrs()
 

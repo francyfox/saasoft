@@ -37,7 +37,6 @@ const isLDAP = (account: TAccount): boolean => account.type === 'ldap'
 function handleChangeType(i: TAccount) {
   const account = i
   account.password = null
-  console.log(account)
 
   emit('onSave', account)
 
@@ -65,6 +64,7 @@ function handleChangeType(i: TAccount) {
       <SaInput
           v-model="i.tags"
           :error="getFieldError(i.id, 'tags', errors)"
+          has-tags
           @blur="emit('onSave', i)"
       />
 

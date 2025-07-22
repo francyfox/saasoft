@@ -13,7 +13,7 @@ export const useAccountsStore = defineStore(
     const records = ref<TAccount[]>([
       {
         id: 'v0',
-        tags: 'XXX',
+        tags: [{ text: 'test' }, { text: 'fff' }],
         type: 'local',
         login: 'fox',
         password: '123456',
@@ -50,7 +50,6 @@ export const useAccountsStore = defineStore(
     function validate(v: TAccount) {
       const result = validateSchema(AccountSchema(v.type), v)
       const errorIndex = errors.value.findIndex((i) => i.id === v.id)
-      console.log(errorIndex)
 
       if (errorIndex !== -1) {
         errors.value[errorIndex] = {

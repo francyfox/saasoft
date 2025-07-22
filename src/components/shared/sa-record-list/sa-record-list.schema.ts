@@ -10,9 +10,13 @@ export const AccountSchemaLDAP = t.Intersect([
   t.Object({
     tags: t.Union(
       [
-        t.String({
-          maxLength: 50,
-        }),
+        t.Array(
+          t.Object({
+            text: t.String({
+              maxLength: 50,
+            }),
+          }),
+        ),
         t.Null(),
       ],
       { errorMessage: 'Максимум 50 символов' },
