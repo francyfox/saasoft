@@ -1,5 +1,11 @@
 <script setup lang="ts">
 import { Plus } from 'lucide-vue-next'
+import { storeToRefs } from 'pinia'
+import SaRecordList from '@/components/shared/sa-record-list/SaRecordList.vue'
+import { useAccountsStore } from '@/stores/accounts.ts'
+
+const accountsStore = useAccountsStore()
+const { records } = storeToRefs(accountsStore)
 </script>
 
 <template>
@@ -12,6 +18,8 @@ import { Plus } from 'lucide-vue-next'
             <Plus />
           </button>
         </div>
+
+        <SaRecordList :list="records" />
       </div>
     </div>
   </section>
