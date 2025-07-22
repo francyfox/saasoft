@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@ameinhardt/unocss-preset-daisy": "^1.1.8",
+    "@sinclair/typebox": "^0.34.38",
+    "@types/node": "^24.0.15",
     "@unocss/reset": "^66.3.3",
     "daisyui": "^5.0.46",
     "lucide-vue-next": "^0.525.0",
