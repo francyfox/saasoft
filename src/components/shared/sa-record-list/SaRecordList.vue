@@ -63,10 +63,16 @@ const types: SaSelectOption[] = [
 
       <SaInput
           v-model="i.login"
+          :error="getFieldError(i.id, 'login', errors)"
           @blur="emit('onSave', i)"
       />
 
-      <SaInput type="password" v-model="i.password" />
+      <SaInput
+          v-model="i.password"
+          type="password"
+          :error="getFieldError(i.id, 'password', errors)"
+          @blur="emit('onSave', i)"
+      />
 
       <div class="col-span-1">
         <button

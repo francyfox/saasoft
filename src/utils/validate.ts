@@ -10,12 +10,6 @@ export function getFieldError(
   field: string,
   errors: IFieldError[],
 ) {
-  console.log(
-    id,
-    errors
-      .find((i) => i.id === id)
-      ?.errors.find((j) => j.path.replace('/', '') === field),
-  )
   return errors
     .find((i) => i.id === id)
     ?.errors.find((j) => j.path.replace('/', '') === field)?.message
