@@ -3,6 +3,9 @@ import { Eye, EyeOff } from 'lucide-vue-next'
 import { computed, ref, useAttrs } from 'vue'
 
 const model = defineModel()
+const props = defineProps<{
+  error?: string
+}>()
 const { type } = useAttrs()
 
 const showEye = type === 'password'
@@ -19,7 +22,15 @@ const inputType = computed(() =>
         :type="inputType"
         v-model="model"
         class="input"
+        :class="{ 'input-error': error }"
     />
+
+    <div class="min-h-[16px]">
+      <div v-if="error" class="text-red text-xs">
+        {{ error}}
+      </div>
+    </div>
+
     <button
         v-if="showEye"
         type="button"

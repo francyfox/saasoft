@@ -2,10 +2,16 @@
 import { Plus } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
 import SaRecordList from '@/components/shared/sa-record-list/SaRecordList.vue'
+import type { TAccount } from '@/components/shared/sa-record-list/sa-record-list.schema.ts'
 import { useAccountsStore } from '@/stores/accounts.ts'
 
 const accountsStore = useAccountsStore()
-const { records } = storeToRefs(accountsStore)
+const { records, errors, hasErrors } = storeToRefs(accountsStore)
+
+function handleSave(v: TAccount) {
+  accountsStore.validate(v)
+  accountsStore.patchRecord(v)
+}
 </script>
 
 <template>
@@ -17,6 +23,7 @@ const { records } = storeToRefs(accountsStore)
           <button
               type="button"
               class="btn"
+              :disabled="hasErrors"
               @click.prevent="accountsStore.addRecord"
           >
             <Plus />
@@ -25,7 +32,9 @@ const { records } = storeToRefs(accountsStore)
 
         <SaRecordList
             :list="records"
+            :errors="errors"
             @onRemove="v => accountsStore.removeRecord(v)"
+            @onSave="handleSave"
         />
       </div>
     </div>

@@ -1,0 +1,22 @@
+import { Value } from '@sinclair/typebox/value'
+import type { IFieldError } from '@/components/shared/sa-record-list/sa-record-list.schema.ts'
+
+export function validateSchema(schema: any, value: any) {
+  return [...Value.Errors(schema, value)]
+}
+
+export function getFieldError(
+  id: string,
+  field: string,
+  errors: IFieldError[],
+) {
+  console.log(
+    id,
+    errors
+      .find((i) => i.id === id)
+      ?.errors.find((j) => j.path.replace('/', '') === field),
+  )
+  return errors
+    .find((i) => i.id === id)
+    ?.errors.find((j) => j.path.replace('/', '') === field)?.message
+}

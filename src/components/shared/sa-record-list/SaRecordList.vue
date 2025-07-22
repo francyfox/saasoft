@@ -1,16 +1,23 @@
 <script setup lang="ts">
 import { Trash } from 'lucide-vue-next'
-import type { TAccount } from '@/components/shared/sa-record-list/sa-record-list.schema.ts'
+import type {
+  IFieldError,
+  TAccount,
+} from '@/components/shared/sa-record-list/sa-record-list.schema.ts'
 import SaInput from '@/components/ui/sa-input/SaInput.vue'
 import SaSelect, {
   type SaSelectOption,
 } from '@/components/ui/sa-select/SaSelect.vue'
+import { getFieldError } from '@/utils/validate.ts'
 
 const emit = defineEmits<{
   onRemove: [id: string]
+  onSave: [account: TAccount]
 }>()
+
 const props = defineProps<{
   list: TAccount[]
+  errors: IFieldError[]
 }>()
 
 const headers = ['Метки', 'Тип записи', 'Логин', 'Пароль']
@@ -44,13 +51,20 @@ const types: SaSelectOption[] = [
     >
       <SaInput
           v-model="i.tags"
+          :error="getFieldError(i.id, 'tags', errors)"
+          @blur="emit('onSave', i)"
       />
 
-      <SaSelect v-model="i.type"
-                :options="types"
+      <SaSelect
+          v-model="i.type"
+          :options="types"
+          @change="emit('onSave', i)"
       />
 
-      <SaInput v-model="i.login" />
+      <SaInput
+          v-model="i.login"
+          @blur="emit('onSave', i)"
+      />
 
       <SaInput type="password" v-model="i.password" />
 

@@ -1,3 +1,7 @@
+import {
+  DefaultErrorFunction,
+  SetErrorFunction,
+} from '@sinclair/typebox/errors'
 import { Icon } from 'lucide-vue-next'
 import { createPinia } from 'pinia'
 import { createApp } from 'vue'
@@ -7,6 +11,10 @@ import '@unocss/reset/tailwind-compat.css'
 
 import './style.css'
 import App from './App.vue'
+
+SetErrorFunction((error) => {
+  return error?.schema?.errorMessage ?? DefaultErrorFunction(error)
+})
 
 const pinia = createPinia()
 
